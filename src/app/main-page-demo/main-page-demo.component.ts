@@ -1,41 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable } from 'rxjs';
-import { MainPageDemoState } from './main-page-demo.model';
+import { MainPageDemoStore } from './main-page-demo.store';
 
 @Component({
   selector: 'app-main-page-demo',
   templateUrl: './main-page-demo.component.html',
   styleUrls: ['./main-page-demo.component.css'],
+  providers: [MainPageDemoStore],
 })
-export class MainPageDemoComponent
-  extends ComponentStore<MainPageDemoState>
-  implements OnInit
-{
-  constructor() {
-    super({
+export class MainPageDemoComponent implements OnInit {
+  constructor(private readonly mainPageDemoStore: MainPageDemoStore) {
+    this.mainPageDemoStore.patchState({
       pageMode: 'default',
-      isFormReadOnly: true,
     });
   }
 
-  readonly pageMode$: Observable<MainPageDemoState['pageMode']> = this.select(
-    (state) => state.pageMode
-  );
-
-  readonly isFormReadOnly$: Observable<MainPageDemoState['isFormReadOnly']> =
-    this.select((state) => state.isFormReadOnly);
+  pageMode$ = this.mainPageDemoStore.pageMode$;
 
   ngOnInit() {
-    console.log(this.pageMode$);
+    // listen to the page mode changes
+    this.pageMode$.subscribe((value) => console.log('Page Mode:', value));
   }
 
-  // readonly defaultPageMode = this.updater((state, mainPageDemoState: MainPageDemoState) => {
+  defaultMode() {
+    this.mainPageDemoStore.setDefaultPageMode();
+  }
 
-  //   return({
-  //   pageMode: [...state.pageMode, mainPageDemoState.pageMode],
-  //   isFormReadOnly: [...state.isFormReadOnly, mainPageDemoState.isFormReadOnly],
-  // })});
-
-  defaultMode() {}
+  addMode() {
+    this.mainPageDemoStore.setAddPageMode();
+  }
 }
