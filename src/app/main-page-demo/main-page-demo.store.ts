@@ -19,4 +19,16 @@ export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
   readonly pageMode$: Observable<string> = this.select(
     (state) => state.pageMode
   );
+
+  readonly setDefaultPageMode = this.updater((state) => ({
+    ...state,
+    pageMode: 'default',
+    isFormReadOnly: true,
+  }));
+
+  readonly setAddPageMode = this.updater((state) => ({
+    ...state,
+    pageMode: 'add',
+    isFormReadOnly: false,
+  }));
 }
