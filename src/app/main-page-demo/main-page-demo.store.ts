@@ -5,8 +5,15 @@ import { Observable } from 'rxjs';
 
 export interface MainPageDemoState {
   pageMode: string;
-  isFormReadOnly: boolean;
+  formStatus: FormStatus;
   basicForm: UntypedFormGroup;
+}
+
+export enum FormStatus {
+  isReadOnly = 'isReadOnly',
+  isEditable = 'isEditable',
+  documentOnly = 'documentOnly',
+  remarkOnly = 'remarkOnly',
 }
 
 @Injectable()
@@ -15,7 +22,7 @@ export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
     // default state is declare here
     super({
       pageMode: 'default',
-      isFormReadOnly: false,
+      formStatus: FormStatus.isReadOnly,
       basicForm: fb.group({
         name: [''],
         age: 0,
@@ -27,8 +34,8 @@ export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
     (state) => state.pageMode
   );
 
-  readonly isFormReadOnly$: Observable<boolean> = this.select(
-    (state) => state.isFormReadOnly
+  readonly formStatus$: Observable<FormStatus> = this.select(
+    (state) => state.formStatus
   );
 
   readonly basicForm$: Observable<UntypedFormGroup> = this.select(
@@ -38,13 +45,25 @@ export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
   readonly setDefaultPageMode = this.updater((state) => ({
     ...state,
     pageMode: 'default',
-    isFormReadOnly: true,
+    formStatus: FormStatus.isReadOnly,
   }));
 
   readonly setAddPageMode = this.updater((state) => ({
     ...state,
     pageMode: 'add',
-    isFormReadOnly: false,
+    formStatus: FormStatus.isEditable,
+  }));
+
+  readonly setRemarkOnlyMode = this.updater((state) => ({
+    ...state,
+    pageMode: 'edit',
+    formStatus: FormStatus.remarkOnly,
+  }));
+
+  readonly setEditRemarkOnlyPageMode = this.updater((state) => ({
+    ...state,
+    pageMode: 'edit',
+    formStatus: FormStatus.remarkOnly,
   }));
 
   // readonly setFormReadOnlyStatus = this.effect(
