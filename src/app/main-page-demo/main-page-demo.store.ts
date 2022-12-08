@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 export interface MainPageDemoState {
   pageMode: string;
   formStatus: FormStatus;
-  basicForm: UntypedFormGroup;
 }
 
 export enum FormStatus {
@@ -23,10 +22,6 @@ export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
     super({
       pageMode: 'default',
       formStatus: FormStatus.isReadOnly,
-      basicForm: fb.group({
-        name: [''],
-        age: 0,
-      }),
     });
   }
 
@@ -36,10 +31,6 @@ export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
 
   readonly formStatus$: Observable<FormStatus> = this.select(
     (state) => state.formStatus
-  );
-
-  readonly basicForm$: Observable<UntypedFormGroup> = this.select(
-    (state) => state.basicForm
   );
 
   readonly setDefaultPageMode = this.updater((state) => ({
@@ -65,6 +56,10 @@ export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
     pageMode: 'edit',
     formStatus: FormStatus.remarkOnly,
   }));
+
+  readonly greetUser = this.effect((name: Observable<string>) => {
+    return name;
+  });
 
   // readonly setFormReadOnlyStatus = this.effect(
   //   (pageMode: Observable<string>) => {
