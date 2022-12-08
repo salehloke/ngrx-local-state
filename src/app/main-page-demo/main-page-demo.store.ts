@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ComponentStore } from '@ngrx/component-store';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 
 export interface MainPageDemoState {
@@ -17,7 +18,7 @@ export enum FormStatus {
 
 @Injectable()
 export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private toastr: ToastrService) {
     // default state is declare here
     super({
       pageMode: 'default',
@@ -58,6 +59,8 @@ export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
   }));
 
   readonly greetUser = this.effect((name: Observable<string>) => {
+    // this.toastr.info(`welcome, ${name}`, 'WELCOME');
+    console.log(`welcome ${name}`);
     return name;
   });
 
