@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ComponentStore } from '@ngrx/component-store';
-import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 
 export interface MainPageDemoState {
@@ -18,7 +17,7 @@ export enum FormStatus {
 
 @Injectable()
 export class MainPageDemoStore extends ComponentStore<MainPageDemoState> {
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private fb: FormBuilder) {
     // default state is declare here
     super({
       pageMode: 'default',

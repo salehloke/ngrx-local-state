@@ -1,13 +1,15 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2020"
+    "target": "es2020",
+    "moduleResolution":"node",
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": false,
