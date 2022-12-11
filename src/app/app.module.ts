@@ -7,6 +7,7 @@ import { HelloComponent } from './hello.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 import { MainPageDemoComponent } from './main-page-demo/main-page-demo.component';
+import { DemoListComponent } from './demo-list/demo-list.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { MainPageDemoComponent } from './main-page-demo/main-page-demo.component
     ReactiveFormsModule,
     AppRoutingModule,
   ],
-  declarations: [AppComponent, HelloComponent, MainPageDemoComponent],
+  declarations: [AppComponent, HelloComponent, MainPageDemoComponent, DemoListComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
